@@ -5,13 +5,15 @@
 */
 
 function isAnagram(str1, str2) {
-  const string1 = str1.split("").sort().join("").toLowerCase();
-  const string2 = str2.split("").sort().join("").toLowerCase();
+  var string1 = str1.toLowerCase().split("").sort().join("");
+  console.log(string1);
+  var string2 = str2.toLowerCase().split("").sort().join("");
+  console.log(string2);
   if (string1 === string2) {
     return true;
   }else{
     return false;
   }
 }
-
+console.log(isAnagram("Listen", "silent")); //my testing
 module.exports = isAnagram;

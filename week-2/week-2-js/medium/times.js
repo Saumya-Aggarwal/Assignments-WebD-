@@ -9,5 +9,17 @@ There is no automated test for this one, this is more for you to understand time
 */
 
 function calculateTime(n) {
+
     return 0.01;
 }
+const startPerformance = performance.now();
+const startDate = Date.now();
+
+// Simulate a task
+for (let i = 0; i < 9*999999999; i++) {}
+
+const endPerformance = performance.now();
+const endDate = Date.now();
+
+console.log(`Performance timing: ${endPerformance - startPerformance} ms`);
+console.log(`Date timing: ${endDate - startDate} ms`);
