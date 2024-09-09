@@ -31,7 +31,7 @@ const updateClock = () => {
     // 12-hour format
     const hours12 = ((now.getHours() + 11) % 12 + 1).toString().padStart(2, '0');
     const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
-    
+    console.clear();
     console.log(`24-hour format: ${hours24}:${minutes}:${seconds}`);
     console.log(`12-hour format: ${hours12}:${minutes}:${seconds} ${ampm}`);
 
