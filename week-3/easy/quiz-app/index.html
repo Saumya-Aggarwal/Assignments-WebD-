@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: azure;
+      }
+      .quiz-container {
+        width: 400px;
+        background-color: rgb(186, 215, 241);
+        padding: 20px;
+        border: 5px solid rgb(127, 244, 255);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      .question {
+        margin-top: 20px;
+        background-color: rgb(212, 251, 255);
+        padding: 20px;
+        width: 100%;
+        border-radius: 10px;
+      }
+      .button {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        button {
+          width: 100%;
+          padding: 5px 3px;
+          border-radius: 10px;
+          border: none;
+          margin-top: 5px;
+        }
+      }
+     
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="quiz-container">
+        <h1>Quiz App</h1>
+        <div class="question"></div>
+        <div class="button"><button onclick="checkAnswer">Submit</button></div>
+      </div>
+    </div>
+    <script type="module">
+      import { quizData } from "./data.js";
+      let questionCounter = 0;
+      let score = 0;
+      const question = document.querySelector(".question");
+      const button = document.querySelector(".button button");
+      console.log(quizData);
+      let max = quizData.length;
+      let randomInt = Math.floor(Math.random() * max);
+      console.log(randomInt); // e.g., 0 to 9
+      let currentQuestion = quizData[randomInt];
+      question.textContent = currentQuestion.question;
+      const answers = document.createElement("div");
+      answers.classList.add("answers");
+      //   const checkBoxs = document.createElement("label");
+
+
+
+      for (let option in currentQuestion) {
+        if (option !== "question" && option !== "correct") {
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = "answer";
+          input.value = currentQuestion[option];
+          const label = document.createElement("label");
+          label.htmlFor = input.name;
+          label.textContent = currentQuestion[option];
+          answers.appendChild(input);
+          answers.appendChild(label);
+        }
+        answers.appendChild(document.createElement("br"));
+      }
+      question.appendChild(answers);
+
+      function checkAnswer() {
+        const selectedAnswer = document.querySelector('input[name="answer"]:checked'); // returns the selected radio button
+        const correctAnswer = currentQuestion.correct;
+        if (selectedAnswer != null && selectedAnswer == currentQuestion[correctAnswer]){
+            score++;
+            questionCounter++;
+            if (questionCounter ==max){
+                alert(`Game Over! Your Score: ${score}/${max}`);
+                window.location.reload();
+            }
+        }
+        return 0;
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="column">
+            <h2>To Do</h2>
+            <div id="todo" class="task-container"></div>
+            <button class="add-btn" onclick="openAddTaskModal('todo')">Add new</button>
+        </div>
+        <div class="column">
+            <h2>In Progress</h2>
+            <div id="inProgress" class="task-container"></div>
+            <button class="add-btn" onclick="openAddTaskModal('inProgress')">Add new</button>
+        </div>
+        <div class="column">
+            <h2>Under Review</h2>
+            <div id="underReview" class="task-container"></div>
+            <button class="add-btn" onclick="openAddTaskModal('underReview')">Add new</button>
+        </div>
+        <div class="column">
+            <h2>Finished</h2>
+            <div id="finished" class="task-container"></div>
+            <button class="add-btn" onclick="openAddTaskModal('finished')">Add new</button>
+        </div>
+    </div>
+
+    <!-- Modal for adding new tasks -->
+    <div id="addTaskModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddTaskModal()">&times;</span>
+            <h3>Add Task</h3>
+            <label for="taskTitle">Title:</label>
+            <input type="text" id="taskTitle">
+            <label for="taskDescription">Description:</label>
+            <input type="text" id="taskDescription">
+            <label for="taskPriority">Priority:</label>
+            <select id="taskPriority">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="Urgent">Urgent</option>
+            </select>
+            <button class="add-task-btn" onclick="addTask()">Add Task</button>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>

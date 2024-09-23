@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BG changer</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: end;
+        
+        }
+        .btn_container {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .btn{
+            padding: 1rem 2rem;
+            border: rgb(195, 226, 254) solid 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            &:hover{
+                background-color: rgb(195, 226, 254);
+                transform: scale(1.1);
+            }
+        }
+        /* body {
+            background-color: red;
+        } */
+    </style>
+</head>
+<body>
+    
+    <div class="container" >
+        <div class="btn_container">
+            <button class="btn" onclick="changeBackground(this)">red</button>
+            <button class="btn" onclick="changeBackground(this)">Green</button>
+            <button class="btn" onclick="changeBackground(this)">Yellow</button>
+            <button class="btn" onclick="changeBackground(this)">Blue</button>
+            <button class="btn" onclick="changeBackground(this)">AliceBlue</button>
+        </div>
+    </div>
+    <script>
+        function changeBackground(button){
+            var color = button.innerText;
+            document.body.style.backgroundColor = color;
+            console.log(color);
+        }
+    </script>
+</body>
+</html>
