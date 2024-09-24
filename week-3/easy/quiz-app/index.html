@@ -34,20 +34,26 @@
         padding: 20px;
         width: 100%;
         border-radius: 10px;
+        font-size: large;
       }
       .button {
         width: 100%;
         display: flex;
         justify-content: center;
-        button {
-          width: 100%;
-          padding: 5px 3px;
-          border-radius: 10px;
-          border: none;
-          margin-top: 5px;
-        }
       }
-     
+      .button button {
+        width: 100%;
+        padding: 5px 3px;
+        border-radius: 10px;
+        border: none;
+        margin-top: 5px;
+      }
+      .button button:hover {
+        background-color: rgb(255, 255, 255);
+      }
+      .button button:active {
+        background-color: rgb(169, 169, 169);
+      }
     </style>
   </head>
   <body>
@@ -55,56 +61,74 @@
       <div class="quiz-container">
         <h1>Quiz App</h1>
         <div class="question"></div>
-        <div class="button"><button onclick="checkAnswer">Submit</button></div>
+        <div class="button">
+          <button onclick="checkAnswer()">Submit</button>
+        </div>
       </div>
     </div>
     <script type="module">
-      import { quizData } from "./data.js";
+      import { quizData } from "./data.js"; // Your quiz data should be imported from here.
+
       let questionCounter = 0;
       let score = 0;
       const question = document.querySelector(".question");
       const button = document.querySelector(".button button");
-      console.log(quizData);
       let max = quizData.length;
-      let randomInt = Math.floor(Math.random() * max);
-      console.log(randomInt); // e.g., 0 to 9
-      let currentQuestion = quizData[randomInt];
-      question.textContent = currentQuestion.question;
+      let currentQuestion;
       const answers = document.createElement("div");
       answers.classList.add("answers");
-      //   const checkBoxs = document.createElement("label");
 
+      // Function to display the current question and its options
+      function displayQuestion() {
+        if (questionCounter < max) {
+          currentQuestion = quizData[questionCounter];
+          question.textContent = currentQuestion.question;
+          answers.innerHTML = ""; // Clear previous answers
 
+          // Loop through the options and display them as radio buttons
+          for (let option in currentQuestion) {
+            if (option !== "question" && option !== "correct") {
+              const input = document.createElement("input");
+              input.type = "radio";
+              input.name = "answer";
+              input.value = option; // Set the value to the option key (e.g., "a", "b")
+              input.id = option;
 
-      for (let option in currentQuestion) {
-        if (option !== "question" && option !== "correct") {
-          const input = document.createElement("input");
-          input.type = "radio";
-          input.name = "answer";
-          input.value = currentQuestion[option];
-          const label = document.createElement("label");
-          label.htmlFor = input.name;
-          label.textContent = currentQuestion[option];
-          answers.appendChild(input);
-          answers.appendChild(label);
-        }
-        answers.appendChild(document.createElement("br"));
-      }
-      question.appendChild(answers);
+              const label = document.createElement("label");
+              label.htmlFor = option;
+              label.textContent = currentQuestion[option];
 
-      function checkAnswer() {
-        const selectedAnswer = document.querySelector('input[name="answer"]:checked'); // returns the selected radio button
-        const correctAnswer = currentQuestion.correct;
-        if (selectedAnswer != null && selectedAnswer == currentQuestion[correctAnswer]){
-            score++;
-            questionCounter++;
-            if (questionCounter ==max){
-                alert(`Game Over! Your Score: ${score}/${max}`);
-                window.location.reload();
+              answers.appendChild(input);
+              answers.appendChild(label);
+              answers.appendChild(document.createElement("br"));
             }
+          }
+          question.appendChild(answers);
+        } else {
+          alert(`Game Over! Your Score: ${score}/${max}`);
+          window.location.reload();
         }
-        return 0;
+      }
+
+      // Function to check the answer when "Submit" button is clicked
+      window.checkAnswer = function () {
+        const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+        if (!selectedAnswer) {
+          alert("Please select an answer before submitting.");
+          return;
         }
+
+        // Compare selected answer with the correct answer key (e.g., "a", "b")
+        const correctAnswerKey = currentQuestion.correct;
+        if (selectedAnswer.value === correctAnswerKey) {
+          score++;
+        }
+
+        questionCounter++;
+        displayQuestion();
+      };
+
+      window.onload = displayQuestion;
     </script>
   </body>
 </html>
